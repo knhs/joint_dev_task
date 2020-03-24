@@ -92,14 +92,15 @@ def q10
 end
 
 def q11
+  
   sports = ["サッカー", "バスケ", "野球", ["フットサル", "野球"], "水泳", "ハンドボール", ["卓球", "サッカー", "ボルダリング"]]
 
   # 以下に回答を記載
   sport = sports.flatten
-  sport.uniq!
+  
 
   puts "ユーザーの趣味一覧"
-  sport.each.with_index(1) do |s , i|
+  sport.uniq!.each.with_index(1) do |s , i|
     puts "No#{i} #{s}"
   end
 
@@ -127,6 +128,8 @@ def q14
   data = { name: "satou", age: 33, address: "saitama", hobby: "soccer", email: "hoge@fuga.com" }
 
   # 以下に回答を記載
+  data_key = data.keys
+  puts data_key
 
 end
 
@@ -135,7 +138,17 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
+  if data1.has_key?(:age)
+    puts "OK"
+  elsif
+    puts "NG"
+  end
 
+  if data2.has_key?(:age)
+    puts "OK"
+  elsif
+    puts "NG"
+  end
 end
 
 def q16
@@ -147,12 +160,32 @@ def q16
   ]
 
   # 以下に回答を記載
-
+  users.each do |user|
+    puts "私の名前は#{user[:name]}です。年齢は#{user[:age]}歳です。"
+  end
 end
 
 class UserQ17
   # 以下に回答を記載
+  def initialize(name:, age:, gender:, admin:)
+    @name = name
+    @age = age
+    @gender = gender
+    @admin = admin
+  end
 
+  def info
+    
+     puts "名前：#{@name}"
+     puts "年齢：#{@age}"
+     puts "性別：#{@gender}"
+     if @admin
+        puts "管理者権限：有り"
+     else
+        puts "管理者権限：無し"
+     end
+
+  end
 end
 
 def q17
@@ -167,6 +200,21 @@ end
 
 class UserQ18
   # 以下に回答を記載
+  
+
+    def initialize(name:, age:)
+        @name = name
+        @age = age
+    end
+
+    def introduce
+        if @age > 15
+            puts "こんにちは，#{@name}と申します。宜しくお願いいたします。"
+        else
+            puts "はいさいまいど〜，#{@name}です！！！"
+        end
+    end
+    
 
 end
 
@@ -182,8 +230,12 @@ end
 class Item
   # 以下を修正して下さい
 
-  def initialize(name)
+  def initialize(name:)
     @name = name
+  end
+
+  def name
+    puts "#{@name}"
   end
 end
 
