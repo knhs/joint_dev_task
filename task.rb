@@ -96,11 +96,11 @@ def q11
   sports = ["サッカー", "バスケ", "野球", ["フットサル", "野球"], "水泳", "ハンドボール", ["卓球", "サッカー", "ボルダリング"]]
 
   # 以下に回答を記載
-  sport = sports.flatten
+  
   
 
   puts "ユーザーの趣味一覧"
-  sport.uniq!.each.with_index(1) do |s , i|
+  sports.flatten.uniq!.each.with_index(1) do |s , i|
     puts "No#{i} #{s}"
   end
 
@@ -138,17 +138,21 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
-  if data1.has_key?(:age)
-    puts "OK"
-  elsif
-    puts "NG"
-  end
+  puts data1.has_key?(:age) ? "OK" :  "NG"
+  puts data2.has_key?(:age) ? "OK" :  "NG"
+=begin
+    if data1.has_key?(:age)
+      puts "OK"
+    else
+      puts "NG"
+    end
 
-  if data2.has_key?(:age)
-    puts "OK"
-  elsif
-    puts "NG"
-  end
+    if data2.has_key?(:age)
+      puts "OK"
+    else
+      puts "NG"
+    end
+=end
 end
 
 def q16
@@ -167,25 +171,23 @@ end
 
 class UserQ17
   # 以下に回答を記載
-  def initialize(name:, age:, gender:, admin:)
-    @name = name
-    @age = age
-    @gender = gender
-    @admin = admin
+  def initialize(**params)        # **paramsとすることで、ハッシュ以外を渡そうとするとエラーが出る
+    @name = params[:name]
+    @age = params[:age]
+    @gender = params[:gender]
+    @admin = params[:admin]   
   end
 
   def info
     
-     puts "名前：#{@name}"
-     puts "年齢：#{@age}"
-     puts "性別：#{@gender}"
-     if @admin
-        puts "管理者権限：有り"
-     else
-        puts "管理者権限：無し"
-     end
-
+    puts <<~EOS
+    名前：#{@name}
+    年齢：#{@age}
+    性別：#{@gender}
+    EOS
+    puts @admin ? "管理者権限：有り" : "管理者権限：無し"
   end
+
 end
 
 def q17
@@ -209,9 +211,9 @@ class UserQ18
 
     def introduce
         if @age > 15
-            puts "こんにちは，#{@name}と申します。宜しくお願いいたします。"
+              "こんにちは，#{@name}と申します。宜しくお願いいたします。"
         else
-            puts "はいさいまいど〜，#{@name}です！！！"
+              "はいさいまいど〜，#{@name}です！！！"
         end
     end
     
@@ -229,14 +231,12 @@ end
 
 class Item
   # 以下を修正して下さい
-
+  attr_reader :name
+  
   def initialize(name:)
     @name = name
   end
 
-  def name
-    puts "#{@name}"
-  end
 end
 
 def q19
@@ -247,12 +247,38 @@ end
 
 class UserQ20
   # 以下に回答を記載
-
+  attr_reader :name, :age
+  #def name
+  #   @name
+  #end
+  #def age
+  #   @age
+  #end
+  
+  def initialize(name:, age:)
+      @name = name
+      @age = age
+  end
 end
 
 class Zoo
   # 以下に回答を記載
+  def initialize(name:,entry_fee:)
+    @name = name
+    @entry_fee = entry_fee
+  end
 
+  def info_entry_fee(user)
+    if user.age >= 65
+        puts "#{user.name}さんの入場料金は#{@entry_fee[:senior]}円です。"
+    elsif user.age >= 13
+        puts "#{user.name}さんの入場料金は#{@entry_fee[:adult]}円です。"
+    elsif user.age >= 6
+        puts "#{user.name}さんの入場料金は#{@entry_fee[:children]}円です。"
+    elsif user.age >= 0 
+        puts "#{user.name}さんの入場料金は#{@entry_fee[:infant]}円です。"
+    end
+  end
 end
 
 
