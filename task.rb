@@ -179,13 +179,14 @@ class UserQ17
   end
 
   def info
-    
+    admin = @admin ? "管理者権限：有り" : "管理者権限：無し"
+
     puts <<~EOS
     名前：#{@name}
     年齢：#{@age}
     性別：#{@gender}
+    #{admin}
     EOS
-    puts @admin ? "管理者権限：有り" : "管理者権限：無し"
   end
 
 end
@@ -269,15 +270,19 @@ class Zoo
   end
 
   def info_entry_fee(user)
-    if user.age >= 65
-        puts "#{user.name}さんの入場料金は#{@entry_fee[:senior]}円です。"
-    elsif user.age >= 13
-        puts "#{user.name}さんの入場料金は#{@entry_fee[:adult]}円です。"
-    elsif user.age >= 6
-        puts "#{user.name}さんの入場料金は#{@entry_fee[:children]}円です。"
-    elsif user.age >= 0 
-        puts "#{user.name}さんの入場料金は#{@entry_fee[:infant]}円です。"
+    
+    entry_fee = case user.age
+    when 0..5
+      @entry_fee[:infant] # @infant_entry_feeでも可
+    when 6..12
+      @entry_fee[:chilren]
+    when 13..64
+      @entry_fee[:adult]
+    when 65..120
+      @entry_fee[:senior]
     end
+    puts "#{user.name}さんの入場料金は#{entry_fee}円です。"
+    
   end
 end
 
