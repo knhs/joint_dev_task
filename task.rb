@@ -179,14 +179,16 @@ class UserQ17
   end
 
   def info
-    admin = @admin ? "管理者権限：有り" : "管理者権限：無し"
-
+    
+    admin = @admin ? "有り" : "無し"
+    
     puts <<~EOS
     名前：#{@name}
     年齢：#{@age}
     性別：#{@gender}
-    #{admin}
+    管理者権限:#{admin}
     EOS
+    
   end
 
 end
